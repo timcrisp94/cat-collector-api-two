@@ -22,3 +22,25 @@ def create():
   db.session.commit()
   # return json response with new created cat data and 201 status code
   return jsonify(cat.serialize()), 201
+
+@cats.route('/<id>', methods=["GET"])
+def show(id):
+  cat = Cat.query.filter_by(id=id).first()
+  cat_data = cat.serialize()
+  return jsonify(cat=cat_data), 200
+
+@cats.route('/<id>', methods=["PUT"])
+@login_required
+def update(id):
+  data = request.get_json()
+  profile = read_token(request)
+  cat = Cat.query.filter_by(id=id).first()
+
+  if cat.profile_id != profile["id"]:
+    return 'Forbidden', 403
+  
+  for key in data:
+    setattr(cat, key, data[key])
+
+  db.session.commit()
+  return jsonify(cat.serialize()), 200
