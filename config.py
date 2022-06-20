@@ -1,3 +1,4 @@
+# store information on our apps settings in config.py
 import os
 
 DATABASE_URL = os.getenv('DATABASE_URL')
