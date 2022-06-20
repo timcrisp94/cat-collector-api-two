@@ -15,6 +15,9 @@ from api.models.cat import Cat
 # ============ Import Views ============
 from api.views.auth import auth
 
+# ============ Register Blueprints ============
+app.register_blueprint(cats, url_prefix='/api/cats')
+
 # Cross Origin Resource Sharing - allows Flask and React apps to communicate with one another while running on different ports (origins)
 
 # creates a new instance of CORS 
