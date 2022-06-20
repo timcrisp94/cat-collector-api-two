@@ -1,5 +1,3 @@
-# server logic
-
 from flask import Flask
 from flask_cors import CORS
 from flask_migrate import Migrate
@@ -14,9 +12,7 @@ from api.models.cat import Cat
 
 # ============ Import Views ============
 from api.views.auth import auth
-
-# ============ Register Blueprints ============
-app.register_blueprint(cats, url_prefix='/api/cats')
+from api.views.cats import cats
 
 # Cross Origin Resource Sharing - allows Flask and React apps to communicate with one another while running on different ports (origins)
 
@@ -40,7 +36,8 @@ def create_app(config):
   cors.init_app(app, supports_credentials=True, methods=list)
 
   # ============ Register Blueprints ============
-  app.register_blueprint(auth, url_prefix='/api/auth') 
+  app.register_blueprint(auth, url_prefix='/api/auth')
+  app.register_blueprint(cats, url_prefix='/api/cats') 
 
   return app
 
